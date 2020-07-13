@@ -20,3 +20,9 @@ highlight_shrink:
 ---
 乡下人第一次进城，看啥都挺新鲜！
 我是坐[Hexo](https://hexo.io/)的车来的。
+```
+        Integer storeId = registerContainer.getStoreId();
+        Integer storeNo = registerContainer.getStoreNo();
+        String storeName = registerContainer.getStoreName();
+        Store store = storeDomain.getById(storeId);
+```
