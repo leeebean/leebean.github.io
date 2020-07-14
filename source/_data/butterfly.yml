@@ -261,7 +261,7 @@ livere:
 # gitalk
 # https://github.com/gitalk/gitalk
 gitalk:
-  enable: false
+  enable: true
   client_id: 2a105e406112e4a1d7e2
   client_secret: 3469fbee612873cc1dd98b897c0c64c755b5b452
   repo: blogtalk
