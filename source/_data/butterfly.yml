@@ -261,18 +261,18 @@ livere:
 # gitalk
 # https://github.com/gitalk/gitalk
 gitalk:
-  enable: false
-  client_id:
-  client_secret:
-  repo:
-  owner:
-  admin:
-  language: en # en, zh-CN, zh-TW, es-ES, fr, ru
+  enable: true
+  client_id: 2a105e406112e4a1d7e2
+  client_secret: 3469fbee612873cc1dd98b897c0c64c755b5b452
+  repo: blogtalk
+  owner: leeebean
+  admin: leeebean 
+  language: zh-CN # en, zh-CN, zh-TW, es-ES, fr, ru
   perPage: 10 # Pagination size, with maximum 100.
   distractionFreeMode: false # Facebook-like distraction free mode.
   pagerDirection: last # Comment sorting direction, available values are last and first.
   createIssueManually: false # Gitalk will create a corresponding github issue for your every single page automatically
-  count: false # dispaly comment count in top_img
+  count: true # dispaly comment count in top_img
 
 # valine
 # https://valine.js.org
