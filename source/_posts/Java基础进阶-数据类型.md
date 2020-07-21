@@ -56,7 +56,7 @@ highlight_shrink:
 
 ### 3.2 存储单位
 
-单位换算：`1024` ( $2^10$ )
+单位换算：`1024` 
 
 KB = 1024B 
 
@@ -97,21 +97,6 @@ Java有八种基本数据类型
 - 问题1:boolean占几个字节？
 
 > byte: The byte data type is an 8-bit signed two's complement integer. It has a minimum value of -128 and a maximum value of 127 (inclusive). The byte data type can be useful for saving memory in large arrays, where the memory savings actually matters. They can also be used in place of int where their limits help to clarify your code; the fact that a variable's range is limited can serve as a form of documentation.
-
-
-### 2.2初始值
-
-data type|default value|maximum and minimum
-:---:|:---:|:---:
-char|'\u0000'|
-byte|0|
-short|0|
-int|0|
-long|0L|
-float|0.0f|
-doubble|0.0d|
-boolean|false|
-
 
 ## 3.引用数据类型
 
