@@ -6,9 +6,9 @@ tags: [Java,基础知识,计算机基础]
 categories: 编程语言
 keywords: Java
 description: 重温基础，查缺补漏
-top_img:
+top_img: https://i.loli.net/2020/08/22/fvwUOzFkW2ujgEM.jpg
 comments: true
-cover:  
+cover: https://i.loli.net/2020/08/22/fvwUOzFkW2ujgEM.jpg
 toc:  
 toc_number:
 auto_open:
