@@ -153,7 +153,8 @@ DB = 1024ND
 4. null可以赋值给引用变量，不能将null赋值给基本类型变量
 5. 任何含有null值的包装类在java拆箱生成基本数据类型时候都会抛出一个空指针异常
 6. 如果使用了带有null值的引用类型的变量，instanceof操作会返回false
-内容来自[java中的null类型---有关null的9件事](https://blog.csdn.net/qq_25077777/article/details/80174763)
+
+> 内容来自[java中的null类型---有关null的9件事](https://blog.csdn.net/qq_25077777/article/details/80174763)
 
 ## doubt
 - d1:boolean占几个字节？
@@ -178,5 +179,6 @@ DB = 1024ND
 [深入理解Java中方法的参数传递机制](https://www.cnblogs.com/sum-41/p/10799555.html)
 
 - d6：值传递，引用传递
+  
 [JAVA中没有引用传递](https://www.cnblogs.com/mamama/p/4627135.html)
 
