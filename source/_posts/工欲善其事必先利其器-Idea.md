@@ -10,7 +10,7 @@ top_img:
 comments: true
 cover:  
 toc:  
-toc_number: 100
+toc_number:
 auto_open:
 copyright:
 mathjax:

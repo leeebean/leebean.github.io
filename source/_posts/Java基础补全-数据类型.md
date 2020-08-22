@@ -17,6 +17,7 @@ mathjax:
 katex:
 aplayer:
 highlight_shrink:
+top: true
 ---
 
 # 一、计算机基础知识
@@ -156,11 +157,12 @@ int result = a + b;
 [Java中的基本类型转换，数据溢出原理](https://www.cnblogs.com/baby-lily/p/10658051.html)
 
 ## 3.引用数据类型
-+ **类** eg：Object、String、Integer
++ **类**
 + **接口**
 + **数据**
 
 与基本数据类型有何不同
+
 数据类型|存储位置|传递方式
 :---:|:---:|:---:
 基本数据类型|栈内存|数值传递
@@ -188,23 +190,23 @@ int result = a + b;
 
 - d4：引用类和基本数据类型存储在哪儿
  
-**基本数据类型**在被创建时，在栈上给其划分一块内存，将数值直接存储在栈上。
+    **基本数据类型**在被创建时，在栈上给其划分一块内存，将数值直接存储在栈上。
 
-**引用数据类型**在被创建时，首先要在栈上给其引用（句柄）分配一块内存，而对象的具体信息都存储在堆内存上，然后由栈上面的引用指向堆中对象的地址。
+    **引用数据类型**在被创建时，首先要在栈上给其引用（句柄）分配一块内存，而对象的具体信息都存储在堆内存上，然后由栈上面的引用指向堆中对象的地址。
 
 - d5：Integer是不是引用类型
   
-[Integer为什么不是引用类型呢？](https://www.imooc.com/qadetail/342469)
+    [Integer为什么不是引用类型呢？](https://www.imooc.com/qadetail/342469)
 
-[为什么Ingeger是引用数据类型,但是不是"引用传递"](https://blog.csdn.net/sinat_36572927/article/details/86250494?utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase)
+    [为什么Ingeger是引用数据类型,但是不是"引用传递"](https://blog.csdn.net/sinat_36572927/article/details/86250494?utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase)
 
-[奇怪了,Integer不是对象吗,?为什么不按引用传递的](https://bbs.csdn.net/topics/310239741)
+    [奇怪了,Integer不是对象吗,?为什么不按引用传递的](https://bbs.csdn.net/topics/310239741)
 
-[深入理解Java中方法的参数传递机制](https://www.cnblogs.com/sum-41/p/10799555.html)
+    [深入理解Java中方法的参数传递机制](https://www.cnblogs.com/sum-41/p/10799555.html)
 
 - d6：值传递，引用传递
  
-[JAVA中没有引用传递](https://www.cnblogs.com/mamama/p/4627135.html)
+    [JAVA中没有引用传递](https://www.cnblogs.com/mamama/p/4627135.html)
 
 ## extra
 
