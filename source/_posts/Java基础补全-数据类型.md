@@ -1,6 +1,6 @@
 ---
 title: Java基础补全-数据类型
-date: 2020-07-01 11:36:00
+date: 2020-07-02 14:59:00
 ## updated: 2018-01-05 00:00:00
 tags: [Java,基础知识,计算机基础]
 categories: 编程语言
@@ -143,8 +143,28 @@ DB = 1024ND
 	</tr>
 </table>
 
+### 2.1 为什么要是用基本数据类型？
+**节省资源**、**高效**
+基本数据类型的数据直接存储在栈内存中，相较于引用类型，不用在堆中`new`一个对象
+### 2.2 溢出
+```
+int a = Integer.MAX_VALUE;
+int b = Integer.MIN_VALUE;
+int result = a + b;
+```
+得出结果result为`-2`
+[Java中的基本类型转换，数据溢出原理](https://www.cnblogs.com/baby-lily/p/10658051.html)
 
 ## 3.引用数据类型
++ **类** eg：Object、String、Integer
++ **接口**
++ **数据**
+
+与基本数据类型有何不同
+数据类型|存储位置|传递方式
+:---:|:---:|:---:
+基本数据类型|栈内存|数值传递
+引用数据类型|堆内存|引用传递
 
 ## 4.空类型
 1. null是Java关键字，大小写敏感
@@ -154,19 +174,23 @@ DB = 1024ND
 5. 任何含有null值的包装类在java拆箱生成基本数据类型时候都会抛出一个空指针异常
 6. 如果使用了带有null值的引用类型的变量，instanceof操作会返回false
 
-> 内容来自[java中的null类型---有关null的9件事](https://blog.csdn.net/qq_25077777/article/details/80174763)
+> 内容摘自[java中的null类型---有关null的9件事](https://blog.csdn.net/qq_25077777/article/details/80174763)
 
-## doubt
+# doubt
 - d1:boolean占几个字节？
+
+    引用官网的说明
 > byte: The byte data type is an 8-bit signed two's complement integer. It has a minimum value of -128 and a maximum value of 127 (inclusive). The byte data type can be useful for saving memory in large arrays, where the memory savings actually matters. They can also be used in place of int where their limits help to clarify your code; the fact that a variable's range is limited can serve as a form of documentation.
 
 - d2：char占用几个字节
-- d3：Integer 和 int 在不同机器上的字长
-- d4：包装类和基本数据类型存储在哪儿
-**基本数据类型**在被创建时，在栈上给其划分一块内存，将数值直接存储在栈上。
-**引用数据类型**在被创建时，首先要在栈上给其引用（句柄）分配一块内存，而对象的具体信息都存储在堆内存上，然后由栈上面的引用指向堆中对象的地址。
 
-[基本数据类型存储位置](https://blog.csdn.net/ncuzengxiebo/article/details/83745065)
+- d3：Integer 和 int 在不同机器上的字长
+
+- d4：引用类和基本数据类型存储在哪儿
+ 
+**基本数据类型**在被创建时，在栈上给其划分一块内存，将数值直接存储在栈上。
+
+**引用数据类型**在被创建时，首先要在栈上给其引用（句柄）分配一块内存，而对象的具体信息都存储在堆内存上，然后由栈上面的引用指向堆中对象的地址。
 
 - d5：Integer是不是引用类型
   
@@ -179,6 +203,16 @@ DB = 1024ND
 [深入理解Java中方法的参数传递机制](https://www.cnblogs.com/sum-41/p/10799555.html)
 
 - d6：值传递，引用传递
-  
+ 
 [JAVA中没有引用传递](https://www.cnblogs.com/mamama/p/4627135.html)
 
+## extra
+
+- Bigdecimal
+- Integer 的缓存机制
+```
+Integer a = 1;
+Integer b = 2;
+System.err.println(a == b);
+System.err.println(a.equals(b));
+```
