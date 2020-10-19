@@ -189,13 +189,13 @@ int result = a + b;
 - d3：Integer 和 int 在不同机器上的字长
 
 - d4：引用类和基本数据类型存储在哪儿
- 
+
     **基本数据类型**在被创建时，在栈上给其划分一块内存，将数值直接存储在栈上。
 
     **引用数据类型**在被创建时，首先要在栈上给其引用（句柄）分配一块内存，而对象的具体信息都存储在堆内存上，然后由栈上面的引用指向堆中对象的地址。
 
 - d5：Integer是不是引用类型
-  
+
     [Integer为什么不是引用类型呢？](https://www.imooc.com/qadetail/342469)
 
     [为什么Ingeger是引用数据类型,但是不是"引用传递"](https://blog.csdn.net/sinat_36572927/article/details/86250494?utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase)
@@ -217,4 +217,51 @@ Integer a = 1;
 Integer b = 2;
 System.err.println(a == b);
 System.err.println(a.equals(b));
+```
+
+
+## 常见测试题
+
+```
+        int i = 1 ;
+        int j = i++ ;
+        if((i==(++j))&&((i++)==j))     {
+            i += j ;
+        }
+        System.out.println("i = "+i);
+
+        int a = 0;
+        for (int i = 0; i < 99; i++) {
+            a = a ++;
+        }
+        System.out.println(a);
+
+
+        int b = 0;
+        for (int i = 0; i < 99; i++) {
+            b = ++ b;
+        }
+        System.out.println(b);
+
+
+        Integer a = 0;
+        int b = 0;
+        for (int i = 0; i < 99; i++) {
+            a = a ++;
+            b = a ++;
+        }
+        System.out.println(a);
+        System.out.println(b);
+
+
+        int num = 50 ;
+        num = num ++ * 2 ;
+        System.out.println(num) ;
+
+        int i = 1 ;
+        int j = i++ ;
+        if((i==(++j))&&((i++)==j)) {
+            i += j ;
+        }
+        System.out.println("i = "+i);
 ```
