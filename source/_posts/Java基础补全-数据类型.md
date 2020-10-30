@@ -17,7 +17,7 @@ mathjax:
 katex:
 aplayer:
 highlight_shrink:
-top: true
+top: false
 ---
 
 # 一、计算机基础知识
@@ -220,7 +220,7 @@ System.err.println(a.equals(b));
 ```
 
 
-## 常见测试题
+## 测一测
 
 ```
         int i = 1 ;
