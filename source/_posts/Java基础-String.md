@@ -1,14 +1,14 @@
 ---
-title: Java基础补全-String
-date: 2020-07-02 14:59:00
+title: Java基础-String
+date: 2020-03-10 14:59:00
 ## updated: 2018-01-05 00:00:00
-tags: [Java,基础知识,计算机基础]
+tags: [Java,基础知识]
 categories: 编程语言
 keywords: [Java,String]
 description: 重温基础，查缺补漏
 top_img:
 comments: true
-cover:
+cover: https://i.loli.net/2020/12/02/sP9qtSmzJe14OHw.png
 toc:
 toc_number:
 auto_open:
@@ -213,14 +213,6 @@ after:1639705018
         return  new String(offset + beginIndex, endIndex - beginIndex, value);
     }
 ```
-
-
-
-
-
-
-
-
 ## String 源码分析
 
 [享元模式](https://blog.csdn.net/yulungggg/article/details/81039655)

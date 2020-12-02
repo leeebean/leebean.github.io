@@ -1,15 +1,15 @@
 ---
-title: 算法
-date: 2020-07-01 11:30:00
+title: Java常见算法
+date: 2020-02-25 11:30:00
 ## updated: 2018-01-05 00:00:00
-tags: java
+tags: Java
 categories: 算法
-keywords: [java,算法]
+keywords: [Java,算法]
 description: java常见算法
 top_img:
 comments: true
-cover:  https://i.loli.net/2020/12/01/W4ai6TDB2E1tAgN.jpg
-toc:  
+cover:  https://i.loli.net/2020/12/02/oy1xXtevMQnWgHz.jpg
+toc:
 toc_number:
 auto_open:
 copyright:
@@ -18,11 +18,10 @@ katex:
 aplayer:
 highlight_shrink:
 ---
-<iframe src = "https://algorithm-visualizer.org/backtracking/hamiltonean-cycles" 
+<iframe src = "https://algorithm-visualizer.org/backtracking/hamiltonean-cycles"
         style= "width:100%;height:500px;"
 ></iframe>
 
-# 一、Java常见算法
 ## 1.排序算法
 ### 冒泡排序
 

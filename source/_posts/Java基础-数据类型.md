@@ -1,15 +1,15 @@
 ---
-title: Java基础补全-数据类型
-date: 2020-07-02 14:59:00
+title: Java基础-数据类型
+date: 2020-03-01 14:59:00
 ## updated: 2018-01-05 00:00:00
 tags: [Java,基础知识,计算机基础]
 categories: 编程语言
 keywords: Java
 description: 重温基础，查缺补漏
-top_img: https://i.loli.net/2020/08/22/fvwUOzFkW2ujgEM.jpg
+top_img:
 comments: true
-cover: https://i.loli.net/2020/08/22/fvwUOzFkW2ujgEM.jpg
-toc:  
+cover: https://i.loli.net/2020/12/02/nFubLHrqwp9iN4e.png
+toc:
 toc_number:
 auto_open:
 copyright:
@@ -58,9 +58,9 @@ top: false
 
 ### 3.2 存储单位
 
-单位换算：-2<sup>10</sup> 
+单位换算：-2<sup>10</sup>
 
-KB = 1024B 
+KB = 1024B
 
 MB = 1024KB
 
@@ -95,52 +95,52 @@ DB = 1024ND
 	<tr>
 	    <th colspan ="3">基本数据类型</th>
         <th>存储</th>
-	    <th>范围</th>  
+	    <th>范围</th>
 	</tr>
     <tr>
         <td rowspan="6">数值型</td>
 	    <td rowspan="4">整型</td>
 	    <td>byte</td>
         <td>1个字节(8bit)</td>
-        <td>-2<sup>7</sup> ~ -2<sup>7</sup>-1</td>   
+        <td>-2<sup>7</sup> ~ -2<sup>7</sup>-1</td>
 	</tr>
     <tr>
 	    <td>short</td>
         <td>2个字节(16bit)</td>
-        <td>-2<sup>15</sup> ~ -2<sup>15</sup>-1</td>   
+        <td>-2<sup>15</sup> ~ -2<sup>15</sup>-1</td>
 	</tr>
     <tr>
 	    <td>int</td>
         <td>4个字节(32bit)</td>
-        <td>-2<sup>31</sup> ~ -2<sup>31</sup>-1</td>   
+        <td>-2<sup>31</sup> ~ -2<sup>31</sup>-1</td>
 	</tr>
     <tr>
 	    <td>long</td>
         <td>8个字节(64bit)</td>
-        <td>-2<sup>63</sup> ~ -2<sup>63</sup>-1</td>   
+        <td>-2<sup>63</sup> ~ -2<sup>63</sup>-1</td>
 	</tr>
     <tr>
 	    <td rowspan="2">浮点型</td>
 	    <td>float</td>
         <td>4个字节(32bit)</td>
-        <td>-</td>   
+        <td>-</td>
 	</tr>
     <tr>
 	    <td>doubble</td>
         <td>8个字节(64bit)</td>
-        <td>-</td>  
+        <td>-</td>
 	</tr>
     <tr>
 	    <td colspan ="2">布尔型</td>
 	    <td>boolean</td>
         <td>1个字节</td>
-        <td>-</td>    
+        <td>-</td>
 	</tr>
     <tr>
 	    <td colspan ="2">字符型</td>
 	    <td>char</td>
         <td>2个字节（16bit）</td>
-        <td>-</td>  
+        <td>-</td>
 	</tr>
 </table>
 
@@ -178,90 +178,35 @@ int result = a + b;
 
 > 内容摘自[java中的null类型---有关null的9件事](https://blog.csdn.net/qq_25077777/article/details/80174763)
 
-# doubt
-- d1:boolean占几个字节？
+# 三. TODO 这些问题有待深入理解
+- 1:boolean占几个字节？
 
     引用官网的说明
 > byte: The byte data type is an 8-bit signed two's complement integer. It has a minimum value of -128 and a maximum value of 127 (inclusive). The byte data type can be useful for saving memory in large arrays, where the memory savings actually matters. They can also be used in place of int where their limits help to clarify your code; the fact that a variable's range is limited can serve as a form of documentation.
 
-- d2：char占用几个字节
+- 2：char占用几个字节
 
-- d3：Integer 和 int 在不同机器上的字长
+- 3：Integer 和 int 在不同机器上的字长
 
-- d4：引用类和基本数据类型存储在哪儿
+- 4：引用类型和基本数据类型存储在哪儿
 
     **基本数据类型**在被创建时，在栈上给其划分一块内存，将数值直接存储在栈上。
 
     **引用数据类型**在被创建时，首先要在栈上给其引用（句柄）分配一块内存，而对象的具体信息都存储在堆内存上，然后由栈上面的引用指向堆中对象的地址。
 
-- d5：Integer是不是引用类型
-
-    [Integer为什么不是引用类型呢？](https://www.imooc.com/qadetail/342469)
-
+- 5：Integer是不是引用类型
     [为什么Ingeger是引用数据类型,但是不是"引用传递"](https://blog.csdn.net/sinat_36572927/article/details/86250494?utm_medium=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase&depth_1-utm_source=distribute.pc_relevant_bbs_down.none-task-blog-baidujs-1.nonecase)
 
-    [奇怪了,Integer不是对象吗,?为什么不按引用传递的](https://bbs.csdn.net/topics/310239741)
+- 6：值传递，引用传递
+
+    Integer是对象,为什么不按引用传递的？
 
     [深入理解Java中方法的参数传递机制](https://www.cnblogs.com/sum-41/p/10799555.html)
 
-- d6：值传递，引用传递
- 
-    [JAVA中没有引用传递](https://www.cnblogs.com/mamama/p/4627135.html)
+    **结论**：JAVA中只有值传递
 
-## extra
+- 7: Integer 的缓存机制
 
-- Bigdecimal
-- Integer 的缓存机制
-```
-Integer a = 1;
-Integer b = 2;
-System.err.println(a == b);
-System.err.println(a.equals(b));
-```
+- 8: HashMap 以引用类型（Integer）作为key会有什么问题
 
-
-## 测一测
-
-```
-        int i = 1 ;
-        int j = i++ ;
-        if((i==(++j))&&((i++)==j))     {
-            i += j ;
-        }
-        System.out.println("i = "+i);
-
-        int a = 0;
-        for (int i = 0; i < 99; i++) {
-            a = a ++;
-        }
-        System.out.println(a);
-
-
-        int b = 0;
-        for (int i = 0; i < 99; i++) {
-            b = ++ b;
-        }
-        System.out.println(b);
-
-
-        Integer a = 0;
-        int b = 0;
-        for (int i = 0; i < 99; i++) {
-            a = a ++;
-            b = a ++;
-        }
-        System.out.println(a);
-        System.out.println(b);
-
-
-        int num = 50 ;
-        num = num ++ * 2 ;
-        System.out.println(num) ;
-
-        int i = 1 ;
-        int j = i++ ;
-        if((i==(++j))&&((i++)==j)) {
-            i += j ;
-        }
-        System.out.println("i = "+i);
-```
+- 9: Bigdecimal

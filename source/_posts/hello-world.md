@@ -1,6 +1,6 @@
 ---
 title: Hello World!
-date: 2020-07-01 11:30:00
+date: 2020-02-18 11:30:00
 ## updated: 2018-01-05 00:00:00
 tags: md
 categories: 日积月累
@@ -8,7 +8,7 @@ keywords: md
 description: 我的第一篇文章
 top_img:
 comments: true
-cover:  
+cover: https://i.loli.net/2020/12/02/APmantcTFfjLgpl.jpg
 toc:  
 toc_number:
 auto_open:
