@@ -1,7 +1,6 @@
 ---
 title: Java基础-数据类型
 date: 2020-03-01 14:59:00
-## updated: 2018-01-05 00:00:00
 tags: [Java,基础知识,计算机基础]
 categories: 编程语言
 keywords: Java

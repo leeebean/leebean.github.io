@@ -1,7 +1,6 @@
 ---
 title: Java常见算法
 date: 2020-02-25 11:30:00
-## updated: 2018-01-05 00:00:00
 tags: Java
 categories: 算法
 keywords: [Java,算法]
@@ -74,8 +73,6 @@ highlight_shrink:
 ### 计数排序
 
 ![计数排序](https://upload-images.jianshu.io/upload_images/11765489-06050cebd6a5bbf8.gif)
-[动图来自@_Cappuccino_](https://www.jianshu.com/u/2529ca0530d6)
-
 ```
     //Counting Sort
     private static void countingSort(Integer[] arr, int max) {
