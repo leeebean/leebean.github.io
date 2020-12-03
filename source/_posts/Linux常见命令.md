@@ -46,29 +46,29 @@ touch命令不常用，在使用make的时候，用以修改文件时间戳，�
 ➜  linux-command-practice touch test.log
 ➜  linux-command-practice ll
 total 0
--rw-r--r--  1 loster  staff     0B 12  3 16:25 test.log
+-rw-r--r--  1 lee  staff     0B 12  3 16:25 test.log
 ➜  linux-command-practice touch test.log
 ➜  linux-command-practice ll
 total 0
--rw-r--r--  1 loster  staff     0B 12  3 16:28 test.log
+-rw-r--r--  1 lee  staff     0B 12  3 16:28 test.log
 ➜  linux-command-practice touch -c test2.log
 ➜  linux-command-practice ll
 total 0
--rw-r--r--  1 loster  staff     0B 12  3 16:28 test.log
+-rw-r--r--  1 lee  staff     0B 12  3 16:28 test.log
 ➜  linux-command-practice touch test2.log
 ➜  linux-command-practice ll
 total 0
--rw-r--r--  1 loster  staff     0B 12  3 16:28 test.log
--rw-r--r--  1 loster  staff     0B 12  3 16:29 test2.log
+-rw-r--r--  1 lee  staff     0B 12  3 16:28 test.log
+-rw-r--r--  1 lee  staff     0B 12  3 16:29 test2.log
 ➜  linux-command-practice touch -t 202011111111 test2.log
 ➜  linux-command-practice ll
 total 0
--rw-r--r--  1 loster  staff     0B 12  3 16:28 test.log
--rw-r--r--  1 loster  staff     0B 11 11 11:11 test2.log
+-rw-r--r--  1 lee  staff     0B 12  3 16:28 test.log
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test2.log
 ➜  linux-command-practice touch -r test2.log test.log
 ➜  linux-command-practice ll
 total 0
--rw-r--r--  1 loster  staff     0B 11 11 11:11 test.log
--rw-r--r--  1 loster  staff     0B 11 11 11:11 test2.log
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test2.log
 ➜  linux-command-practice
 ```
