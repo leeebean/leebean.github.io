@@ -72,3 +72,54 @@ total 0
 -rw-r--r--  1 lee  staff     0B 11 11 11:11 test2.log
 ➜  linux-command-practice
 ```
+
+## rm
+
+`语法`：rm [options] name
+
++ -i  --interactive 删除既有文件或目录之前先询问用户
++ -f  --force 强制删除文件或目录，不会出现警告
++ -r  -R 或--recursive 递归处理，将指定目录下的所有文件及子目录一并处理，较危险，慎用
++ -rf 强制删除指定目录下的文件或目录和目录下的所有文件
+
+**原理**:
+> Linux通过文件link的数量控制文件的删除，只有当一个文件不存在任何link的时候且没有程序调用的时候，文件才会被真正删除。
+就rm命令而言，就是减少磁盘引用计数i_link(文件到inode的链接数量)；inode节点指向存储数据的block,删除文件并不是清除inode和block，而是将文件的硬链接为0，引用计数为0 才能删除文件
+
+注：如果有新的数据存储或者系统通过类似fsck命令做磁盘检查的时候，被删除的数据块和目录会被释放，数据无法找回
+
+[可以备份，尽量不要删除，比删除更好的是重命名->只删除文件链接，重启、重新写入后回收](https://www.cnblogs.com/ftl1012/p/9247107.html)
+
+```
+➜  linux-command-practice mkdir test
+➜  linux-command-practice cd test
+➜  test touch a.txt b.txt c.txt
+➜  test ll
+total 0
+-rw-r--r--  1 lee  staff     0B 12  4 16:58 a.txt
+-rw-r--r--  1 lee  staff     0B 12  4 16:58 b.txt
+-rw-r--r--  1 lee  staff     0B 12  4 16:58 c.txt
+➜  test rm a.txt
+➜  test cd ..
+➜  linux-command-practice rm test
+rm: test: is a directory
+➜  linux-command-practice cd test
+➜  test rm -r *
+zsh: sure you want to delete all 2 files in /Users/lee/Desktop/linux-command-practice/test [yn]? y
+➜  test ll
+➜  test cd ..
+➜  linux-command-practice ll
+total 0
+drwxr-xr-x  2 lee  staff    64B 12  4 16:59 test
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test2.log
+➜  linux-command-practice rm -r test
+➜  linux-command-practice ll
+total 0
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test2.log
+➜  linux-command-practice
+```
+
+
+
