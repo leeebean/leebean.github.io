@@ -122,4 +122,41 @@ total 0
 ```
 
 
+## mkdir
+
+make directory 创建目录
+
+mkdir [-p] dirName
+
++ -p 确保目录名称存在，不存在的就建一个。
+
+```
+➜  linux-command-practice mkdir test
+➜  linux-command-practice ll
+total 0
+drwxr-xr-x  2 loster  staff    64B 12  7 09:33 test
+-rw-r--r--  1 loster  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 loster  staff     0B 11 11 11:11 test2.log
+➜  linux-command-practice mkdir test/inner
+➜  linux-command-practice ll
+total 0
+drwxr-xr-x  3 loster  staff    96B 12  7 09:33 test
+-rw-r--r--  1 loster  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 loster  staff     0B 11 11 11:11 test2.log
+➜  linux-command-practice cd test
+➜  test ll
+total 0
+drwxr-xr-x  2 loster  staff    64B 12  7 09:33 inner
+➜  test cd ..
+➜  linux-command-practice mkdir -p test
+➜  linux-command-practice ll
+total 0
+drwxr-xr-x  3 loster  staff    96B 12  7 09:33 test
+-rw-r--r--  1 loster  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 loster  staff     0B 11 11 11:11 test2.log
+➜  linux-command-practice mkdir test2/inner
+mkdir: test2: No such file or directory
+➜  linux-command-practice
+```
+
 
