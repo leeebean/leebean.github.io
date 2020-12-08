@@ -159,4 +159,47 @@ mkdir: test2: No such file or directory
 ➜  linux-command-practice
 ```
 
+## cat
+
+concatenate 命令用于连接文件并打印到标准输出设备上
+
+`语法`：cat [-AbeEnstTuv] [--help] [--version] fileName
+
+-n 或 --number：由 1 开始对所有输出的行数编号。
+-b 或 --number-nonblank：和 -n 相似，只不过对于空白行不编号。
+-s 或 --squeeze-blank：当遇到有连续两行以上的空白行，就代换为一行的空白行。
+-v 或 --show-nonprinting：使用 ^ 和 M- 符号，除了 LFD 和 TAB 之外。
+-E 或 --show-ends : 在每行结束处显示 $。
+-T 或 --show-tabs: 将 TAB 字符显示为 ^I。
+-A, --show-all：等价于 -vET。
+-e：等价于"-vE"选项；
+-t：等价于"-vT"选项；
+
+```
+➜  linux-command-practice ll
+total 2176
+-rw-r--r--  1 lee  staff   1.1M 12  6 15:27 practice.log
+drwxr-xr-x  3 lee  staff    96B 12  7 09:33 test
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test.log
+-rw-r--r--  1 lee  staff     0B 11 11 11:11 test2.log
+➜  linux-command-practice cat practice.log
+    (Slf4jLoggerFactory.java:95)][0][] INFO - closeChannel: close the connection to remote address[] result: true
+    2020-12-06 15:26:42.482 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][autocompleteAsn_QuartzSchedulerThread][][org.quartz.core.QuartzSchedulerThread.run(QuartzSchedulerThread.java:291)][0][] DEBUG - batch acquisition of 0 triggers
+    2020-12-06 15:26:42.833 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][sendDingDingMsg_Worker-1][][org.apache.curator.RetryLoop.takeException(RetryLoop.java:193)][0][] DEBUG - Retrying operation
+    2020-12-06 15:26:42.834 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][ReconcileService RUNNING][][org.apache.curator.ConnectionState.checkTimeouts(ConnectionState.java:200)][0][] ERROR - Connection timed out for connection string (10.111.31.238:2560) and timeout (15000) / elapsed (51828)
+➜  linux-command-practice cat test.log
+  9667	2020-12-06 15:27:00.012 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][Quartz Shutdown-Hook desktopTemporaryUserExpired][][org.quartz.simpl.SimpleThreadPool.shutdown(SimpleThreadPool.java:328)][0][] DEBUG - Shutting down threadpool...
+  9668	2020-12-06 15:27:00.012 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][Quartz Shutdown-Hook executeGenerateOutstockSchedule][][org.quartz.simpl.SimpleThreadPool.shutdown(SimpleThreadPool.java:328)][0][] DEBUG - Shutting down threadpool...
+  9669	2020-12-06 15:27:00.013 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][Quartz Shutdown-Hook storeContainerNotReturnAlarm][][org.quartz.simpl.SimpleThreadPool.shutdown(SimpleThreadPool.java:328)][0][] DEBUG - Shutting down threadpool...
+  9670	2020-12-06 15:27:00.026 [wms-inner/Lees-MacBook-Pro.local/127.0.0.1][Thread-33][][org.apache.dubbo.spring.boot.context.event.AwaitingNonWebApplicationListener.lambda$release$2(AwaitingNonWebApplicationListener.java:162)][0][] INFO -  [Dubbo] Current Spring Boot Application is about to shutdown...
+➜  linux-command-practice cat /dev/null > test.log
+➜  linux-command-practice cat test.log
+➜  linux-command-practice cat -b practice.log test.log >> test2.log
+➜  linux-command-practice cat test2.log
+...
+  9665	2020-12-06 15:27:00.012 [wms-inner/Losters-MacBook-Pro.local/127.0.0.1][Quartz Shutdown-Hook executeGenerateOutstockSchedule][][org.quartz.simpl.SimpleThreadPool.shutdown(SimpleThreadPool.java:328)][0][] DEBUG - Shutting down threadpool...
+  9666	2020-12-06 15:27:00.013 [wms-inner/Losters-MacBook-Pro.local/127.0.0.1][Quartz Shutdown-Hook storeContainerNotReturnAlarm][][org.quartz.simpl.SimpleThreadPool.shutdown(SimpleThreadPool.java:328)][0][] DEBUG - Shutting down threadpool...
+  9667	2020-12-06 15:27:00.026 [wms-inner/Losters-MacBook-Pro.local/127.0.0.1][Thread-33][][org.apache.dubbo.spring.boot.context.event.AwaitingNonWebApplicationListener.lambda$release$2(AwaitingNonWebApplicationListener.java:162)][0][] INFO -  [Dubbo] Current Spring Boot Application is about to shutdown...
+```
+
 
