@@ -25,7 +25,7 @@ top: false
 
 ## 课前预备知识
 
-+ [数据结构]()
++ [数据结构](https://leeebean.github.io/leebean.github.io/2020/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/)
 
 集合框架被设计成要满足以下几个目标。
 
