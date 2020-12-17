@@ -34,7 +34,7 @@ top: false
 
 # 二、Redis的常见命令
 
-### 1.基础命令
+## 1.基础命令
 
 详细请参考 [Redis 命令参考](http://doc.redisfans.com/)
 
