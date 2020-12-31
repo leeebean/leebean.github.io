@@ -19,11 +19,10 @@ highlight_shrink:
 top: false
 ---
 
-# 一、SpringBoot整合redis
 
-## 1> 基础配置
+# 一、基础配置
 
-### 1.pom.xml
+## 1.pom.xml
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -100,7 +99,7 @@ top: false
 </project>
 ```
 
-### 2.application.yml
+## 2.application.yml
 
 ```
 spring:
@@ -121,7 +120,7 @@ spring:
       shutdown-timeout: 100ms
 ```
 
-### 3.RedisConfig.java
+## 3.RedisConfig.java
 
 ```
 package com.lee.redisdemo1.config;
@@ -202,7 +201,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 ```
 
-### 4.RedisController
+## 4.RedisController
 
 ```
 @RestController
@@ -227,13 +226,13 @@ public class RedisController {
 }
 ```
 
-## 2> reidsTemplate和stringRedisTemplate
+# 二、reidsTemplate和stringRedisTemplate
 
-### 1.关系不同
+## 1.关系不同
 
-ReidsTemplate继承StringRedisTemplate<String,String>
+`ReidsTemplate` **继承** `StringRedisTemplate<String,String>`
 
-### 2.数据是不共通,各自存取
+## 2.数据不共通,各自存取
 
 ```
 
@@ -265,14 +264,90 @@ public class RedisControllerTest {
     null
     hi
 
-### 3.可读性不同
+## 3.可读性不同
 
 
-### 4.序列化策略不同
+**序列化相关知识：[日积月累-Java的序列化](https://leeebean.github.io/leebean.github.io/2020/12/23/%E6%97%A5%E7%A7%AF%E6%9C%88%E7%B4%AF-Java%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96/)**
 
-    RedisTemplate默认采用的的是JDK自带的序列化策略
-    StringRedisTemplate默认采用的是String的序列化策略
 
-## 3>序列化策略
+User
+```
+@Data
+public class User implements Externalizable {
+
+    public User() {
+        System.out.println("调用构造方法！");
+    }
+
+    private static final long serialVersionUID = -1266182246612973862L;
+    private String name;
+    private Integer sex;
+    private Integer age;
+
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        //将name反转后写入二进制流
+        StringBuffer reverse = new StringBuffer(name).reverse();
+        System.out.println(reverse.toString());
+        out.writeObject(reverse);
+        out.writeInt(age);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        //将读取的字符串反转后赋值给name实例变量
+        this.name = ((StringBuffer) in.readObject()).reverse().toString();
+        System.out.println(name);
+        this.age = in.readInt();
+    }
+
+}
+
+```
+
+Test
+```
+        User user = new User();
+        user.setName("lee");
+        user.setSex(1);
+        user.setAge(20);
+        redisTemplate.opsForHash().put("user:", "lee", user);
+        stringRedisTemplate.opsForHash().put("user:", "lee", user.toString());
+        System.out.println(redisTemplate.opsForHash().get("user:", "lee"));
+        System.out.println(stringRedisTemplate.opsForHash().get("user:", "lee"));
+```
+console
+
+    调用构造方法！
+    eel
+    调用构造方法！
+    lee
+    User(name=lee, sex=null, age=20)
+    User(name=lee, sex=1, age=20)
+
+
+**StringReidsTmplate 存放的数据具有良好的可读性**
+
+![StringReidsTmplate](https://i.loli.net/2020/12/31/Xqsd3lxbWcIPYt2.png)
+
+**RedisTemplate存数据时是先将数据序列化成*字节数组*，再存放到Redis数据库中，不具有可读性**
+
+![ReidsTmplate](https://i.loli.net/2020/12/31/TafmCRUSY5u1Wr9.png)
+
+
+## 4.序列化策略不同
+
++ RedisTemplate**默认**采用的的是**JDK自带的序列化策略**
+
++ StringRedisTemplate**默认**采用的是**String的序列化策略**
+
+# 三、序列化策略
+
++ **GenericToStringSerializer**: 可以将任何对象泛化为字符串并序列化
++ **Jackson2JsonRedisSerializer**: 跟JacksonJsonRedisSerializer实际上是一样的
++ **JacksonJsonRedisSerializer**: 序列化object对象为json字符串
++ **JdkSerializationRedisSerializer**: 序列化java对象
++ **StringRedisSerializer**: 简单的字符串序列化
 
 
