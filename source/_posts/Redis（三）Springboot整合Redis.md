@@ -181,18 +181,30 @@ public class RedisConfig extends CachingConfigurerSupport {
 
 
 
-//    /**
-//     * 实例化RedisTemplate对象
-//     */
+//
 //    @Bean
-//    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
-//        StringRedisTemplate template = new StringRedisTemplate(factory);
-//        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+//    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+//        // 创建RedisTemplate<String, Object>对象
+//        RedisTemplate<String, Object> template = new RedisTemplate<>();
+//        // 配置连接工厂
+//        template.setConnectionFactory(factory);
+//        // 定义Jackson2JsonRedisSerializer序列化对象
+//        Jackson2JsonRedisSerializer<Object> jacksonSeial = new Jackson2JsonRedisSerializer<>(Object.class);
 //        ObjectMapper om = new ObjectMapper();
+//        // 指定要序列化的域，field,get和set,以及修饰符范围，ANY是都有包括private和public
 //        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//        // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会报异常
 //        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-//        jackson2JsonRedisSerializer.setObjectMapper(om);
-//        template.setValueSerializer(jackson2JsonRedisSerializer);
+//        jacksonSeial.setObjectMapper(om);
+//        StringRedisSerializer stringSerial = new StringRedisSerializer();
+//        // redis key 序列化方式使用stringSerial
+//        template.setKeySerializer(stringSerial);
+//        // redis value 序列化方式使用jackson
+//        template.setValueSerializer(jacksonSeial);
+//        // redis hash key 序列化方式使用stringSerial
+//        template.setHashKeySerializer(stringSerial);
+//        // redis hash value 序列化方式使用jackson
+//        template.setHashValueSerializer(jacksonSeial);
 //        template.afterPropertiesSet();
 //        return template;
 //    }
@@ -342,12 +354,252 @@ console
 
 + StringRedisTemplate**默认**采用的是**String的序列化策略**
 
-# 三、序列化策略
+# 三、spring-data-redis序列化策略
 
 + **GenericToStringSerializer**: 可以将任何对象泛化为字符串并序列化
 + **Jackson2JsonRedisSerializer**: 跟JacksonJsonRedisSerializer实际上是一样的
 + **JacksonJsonRedisSerializer**: 序列化object对象为json字符串
 + **JdkSerializationRedisSerializer**: 序列化java对象
 + **StringRedisSerializer**: 简单的字符串序列化
++ **GenericToStringSerializer**:类似StringRedisSerializer的字符串序列化
++ **GenericJackson2JsonRedisSerializer**:类似Jackson2JsonRedisSerializer，但使用时构造函数不用特定的类参考以上序列化,自定义序列化类;
++ **OxmSerializer**
 
 
+# 四、Springboot中Redis的坑
+
+## 1.reidsTemplate和stringRedisTemplate混用的坑
+
+### 1.1 现象
+
+RedisConfig
+```
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+        // 创建RedisTemplate<String, Object>对象
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        // 配置连接工厂
+        template.setConnectionFactory(factory);
+        // 定义Jackson2JsonRedisSerializer序列化对象
+        Jackson2JsonRedisSerializer<Object> jacksonSeial = new Jackson2JsonRedisSerializer<>(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        // 指定要序列化的域，field,get和set,以及修饰符范围，ANY是都有包括private和public
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会报异常
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jacksonSeial.setObjectMapper(om);
+        StringRedisSerializer stringSerial = new StringRedisSerializer();
+        // redis key 序列化方式使用stringSerial
+        template.setKeySerializer(stringSerial);
+        // redis value 序列化方式使用jackson
+        template.setValueSerializer(jacksonSeial);
+        // redis hash key 序列化方式使用stringSerial
+        template.setHashKeySerializer(stringSerial);
+        // redis hash value 序列化方式使用jackson
+        template.setHashValueSerializer(jacksonSeial);
+        template.afterPropertiesSet();
+        return template;
+    }
+```
+测试方法
+```
+    @Test
+    void templateTest() {
+        User user = new User();
+        user.setName("lee");
+        user.setSex(1);
+        user.setAge(20);
+        redisTemplate.opsForHash().put("user:", "lee", user);
+        stringRedisTemplate.opsForHash().put("user:", "lee", user.toString());
+        System.out.println(stringRedisTemplate.opsForHash().get("user:", "lee"));
+        System.out.println(redisTemplate.opsForHash().get("user:", "lee"));
+    }
+```
+console
+```
+
+
+调用构造方法！
+User(name=lee, sex=1, age=20)
+
+
+org.springframework.data.redis.serializer.SerializationException: Could not read JSON: Unrecognized token 'User': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (byte[])"User(name=lee, sex=1, age=20)"; line: 1, column: 6]; nested exception is com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'User': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (byte[])"User(name=lee, sex=1, age=20)"; line: 1, column: 6]
+
+	at org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer.deserialize(Jackson2JsonRedisSerializer.java:75)
+	at org.springframework.data.redis.core.AbstractOperations.deserializeHashValue(AbstractOperations.java:355)
+	at org.springframework.data.redis.core.DefaultHashOperations.get(DefaultHashOperations.java:55)
+	at com.lee.redisdemo.RedisControllerTest.templateTest(RedisControllerTest.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:688)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:210)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:206)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:131)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:65)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)
+	at java.util.ArrayList.forEach(ArrayList.java:1257)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:129)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:127)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:126)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:84)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:108)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:96)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:75)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:230)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:58)
+Caused by: com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'User': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: (byte[])"User(name=lee, sex=1, age=20)"; line: 1, column: 6]
+	at com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:1851)
+	at com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:717)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser._reportInvalidToken(UTF8StreamJsonParser.java:3588)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser._handleUnexpectedValue(UTF8StreamJsonParser.java:2683)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser._nextTokenNotInObject(UTF8StreamJsonParser.java:865)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:757)
+	at com.fasterxml.jackson.databind.ObjectMapper._initForReading(ObjectMapper.java:4664)
+	at com.fasterxml.jackson.databind.ObjectMapper._readMapAndClose(ObjectMapper.java:4513)
+	at com.fasterxml.jackson.databind.ObjectMapper.readValue(ObjectMapper.java:3572)
+	at org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer.deserialize(Jackson2JsonRedisSerializer.java:73)
+	... 68 more
+
+
+2020-1-31 16:36:10.711  INFO 38789 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+
+Process finished with exit code 255
+
+```
+
+此时我们再来看下 db0 只有一个user:
+
+![只有一个key](https://i.loli.net/2020/12/31/r1Zjs6HO3MByR5d.png)
+
+### 1.2 原因分析
+
+首先看下StringRedisTmpate的源码
+
+```
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+package org.springframework.data.redis.core;
+
+import org.springframework.data.redis.connection.DefaultStringRedisConnection;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.RedisSerializer;
+
+public class StringRedisTemplate extends RedisTemplate<String, String> {
+    public StringRedisTemplate() {
+        this.setKeySerializer(RedisSerializer.string());
+        this.setValueSerializer(RedisSerializer.string());
+        this.setHashKeySerializer(RedisSerializer.string());
+        this.setHashValueSerializer(RedisSerializer.string());
+    }
+
+    public StringRedisTemplate(RedisConnectionFactory connectionFactory) {
+        this();
+        this.setConnectionFactory(connectionFactory);
+        this.afterPropertiesSet();
+    }
+
+    protected RedisConnection preProcessConnection(RedisConnection connection, boolean existingConnection) {
+        return new DefaultStringRedisConnection(connection);
+    }
+}
+
+```
+
+可以看到 StringRedisTmplate 的 key value hashkey hashvalue 序列话的方式同为RedisSerializer.string()即 `StringRedisSerializer.UTF_8`
+
+```
+    static RedisSerializer<String> string() {
+        return StringRedisSerializer.UTF_8;
+    }
+```
+
+再看下RedisConfig中对RedisTmplate 序列化方式的配置
+```
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+        // 创建RedisTemplate<String, Object>对象
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        // 配置连接工厂
+        template.setConnectionFactory(factory);
+        // 定义Jackson2JsonRedisSerializer序列化对象
+        Jackson2JsonRedisSerializer<Object> jacksonSeial = new Jackson2JsonRedisSerializer<>(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        // 指定要序列化的域，field,get和set,以及修饰符范围，ANY是都有包括private和public
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会报异常
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jacksonSeial.setObjectMapper(om);
+        StringRedisSerializer stringSerial = new StringRedisSerializer();
+        // redis key 序列化方式使用stringSerial
+        template.setKeySerializer(stringSerial);
+        // redis value 序列化方式使用jackson
+        template.setValueSerializer(jacksonSeial);
+        // redis hash key 序列化方式使用stringSerial
+        template.setHashKeySerializer(stringSerial);
+        // redis hash value 序列化方式使用jackson
+        template.setHashValueSerializer(jacksonSeial);
+        template.afterPropertiesSet();
+        return template;
+    }
+```
+
+我们发现 key的序列化方式和StringRedisTmplate是相同的 再结合rdm中看到db0中的key 可以得出结论
+**测试方法**中 第7行redisTemplate put后，因为两个模版key的序列化方式相同， 那么第8行执行stringRedisTemplate 的put操作时因为key相同则进行了覆盖 又因为**二、reidsTemplate和stringRedisTemplate**中说到的**数据不共通,各自存取**导致第10行 执行get操作时报错
+
+### 1.3 解决方案：
+1. 只用一种模版`reidsTemplate`或`stringRedisTemplatehuo`
+2. 两种模版制定不同的key序列化策略
