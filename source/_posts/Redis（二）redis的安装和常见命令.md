@@ -2,7 +2,7 @@
 title: Redis（二）redis的安装和常见命令
 date: 2020-12-16 14:59:00
 tags: Redis
-categories: [中间件,Redis,Nosql]
+categories: Redis
 keywords: Java
 description: redis的安装和快速使用
 top_img:

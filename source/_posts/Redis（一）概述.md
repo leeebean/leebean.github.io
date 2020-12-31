@@ -2,7 +2,7 @@
 title: Redis（一）概述
 date: 2020-12-15 14:59:00
 tags: [Redis,理论知识]
-categories: [中间件,Redis,Nosql]
+categories: Redis
 keywords: Java
 description: redis的基本概念和简单理论知识
 top_img:

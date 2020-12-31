@@ -1,8 +1,8 @@
 ---
 title: Redis（三）Springboot整合Redis
 date: 2020-12-17 14:59:00
-tags: Redis
-categories: [中间件,Redis,Nosql,SpringBoot]
+tags: [Redis,Springboot]
+categories: Redis
 keywords: Reids,SpringBoot
 description: redis的使用
 top_img:
