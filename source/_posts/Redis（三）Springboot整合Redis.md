@@ -601,5 +601,5 @@ public class StringRedisTemplate extends RedisTemplate<String, String> {
 **测试方法**中 第7行redisTemplate put后，因为两个模版key的序列化方式相同， 那么第8行执行stringRedisTemplate 的put操作时因为key相同则进行了覆盖 又因为**二、reidsTemplate和stringRedisTemplate**中说到的**数据不共通,各自存取**导致第10行 执行get操作时报错
 
 ### 1.3 解决方案：
-1. 只用一种模版`reidsTemplate`或`stringRedisTemplatehuo`
+1. 只用一种模版`reidsTemplate`或`stringRedisTemplate`
 2. 两种模版制定不同的key序列化策略
