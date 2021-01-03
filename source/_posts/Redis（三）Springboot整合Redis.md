@@ -1,10 +1,10 @@
 ---
-title: Redis（三）Springboot整合Redis
+title: Redis（三）SpringBoot整合Redis
 date: 2020-12-17 14:59:00
 tags: [Redis,Springboot]
 categories: Redis
 keywords: Reids,SpringBoot
-description: redis的使用
+description: SpringBoot对Redis的整合
 top_img:
 comments: true
 cover: https://i.loli.net/2020/12/15/AFq8SCP2jefbHKa.png
@@ -364,6 +364,8 @@ console
 + **GenericToStringSerializer**:类似StringRedisSerializer的字符串序列化
 + **GenericJackson2JsonRedisSerializer**:类似Jackson2JsonRedisSerializer，但使用时构造函数不用特定的类参考以上序列化,自定义序列化类;
 + **OxmSerializer**
+
+**1. 该部分内容待完善**
 
 
 # 四、Springboot中Redis的坑

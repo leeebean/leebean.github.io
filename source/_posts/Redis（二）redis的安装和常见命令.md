@@ -3,7 +3,7 @@ title: Redis（二）redis的安装和常见命令
 date: 2020-12-16 14:59:00
 tags: Redis
 categories: Redis
-keywords: Java
+keywords: Redis
 description: redis的安装和快速使用
 top_img:
 comments: true
