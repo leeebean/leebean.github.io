@@ -76,6 +76,104 @@ top: false
 ```
 ## string
 
+```
+        String key = "key";
+        String value = "abcde";
+        ValueOperations<String, String> valueOperations = redisTemplate.opsForValue();
+        // set
+        valueOperations.set(key, value);
+        // set设置过期时间
+        valueOperations.set(key, value, 1000, TimeUnit.SECONDS);
+        // 重新设置key 如果存在则返回false 否则返回true
+        System.out.println(valueOperations.setIfAbsent(key,value));
+        // set设置偏移量
+        valueOperations.set(key, value, 2);
+        // 将二进制第offset位值变为value
+        //System.out.println(valueOperations.setBit(key, 1, true));
+        // 对key所储存的字符串值，获取指定偏移量上的位(bit)
+        //System.out.println(valueOperations.getBit(key,10));
+        // 获取key值 ababcde
+        System.out.println(valueOperations.get(key));
+```
+
+代码|操作|key|value|返回值|描述
+:---:|:---:|:---:|:---:|:---:|:---
+5|valueOperations.set(key, value)|key|abdce|void|存入key value
+7|valueOperations.set(key, value, 1000, TimeUnit.SECONDS)|key|abcde|void|存入带过期时间的key value
+9|valueOperations.setIfAbsent(key,value)|key|abcde|boolean(false)|存在则更新value 返回false 不存在则存入返回true
+11|valueOperations.set(key, value, 2)|key|ababcde|void|将key的value值从第二个字符开始替换为value
+17|valueOperations.get(key)|key|ababcde|String(ababcde)|获取存入redis的key对应的value值
+
+
+```
+        // 截取key的子字符串 abab
+        System.out.println(valueOperations.get(key, 0, 3));
+        // 获取指定key的字符串的长度 7
+        System.out.println(valueOperations.size(key));
+        // 设置key跟value的值，同时获取key的值(原来的值) ababcde
+        System.out.println(valueOperations.getAndSet(key, value));
+        // 获取原来的key的值后在后面新增上新的字符串 并返回更新后的字符串长度
+        System.out.println(valueOperations.append(key, "fg"));
+        // abcdefg
+        System.out.println(valueOperations.get(key));
+
+```
+
+代码|操作|key|value|返回值|描述
+:---:|:---:|:---:|:---:|:---:|:---
+2|valueOperations.get(key, 0, 3)|key|abdce|String(abab)|截取key的0-3位的子字符串
+4|valueOperations.size(key)|key|abcde|Long(7)|获取指定key的字符串（value）的长度 
+6|valueOperations.getAndSet(key, value)|key|abcde|String(ababcde)|设置key跟value的值，同时获取key的值(原来的值) 
+8|valueOperations.append(key, "fg")|key|abcdefg|Integr(7)|获取原来的key的值后在后面新增上新的字符串(fg) 并返回更新后的字符串长度
+
+```
+        String key2 = "length";
+        String key3 = "height";
+        Long length = 20L;
+        Double height = 182.5d;
+        List<String> keys = Arrays.asList(new String[]{key,key2,key3});
+        // 增量方式存储long值和double值（正值则自增，负值则自减） 并返回的值
+        System.out.println(valueOperations.increment(key2, length));
+        System.out.println(valueOperations.increment(key3, height));
+        System.out.println(valueOperations.multiGet(keys));
+        System.out.println(valueOperations.increment(key2, length));
+        System.out.println(valueOperations.increment(key3, height));
+        // 根据keys批量获取值
+        System.out.println(valueOperations.multiGet(keys));
+```
+
+
+代码|操作|key|value|返回值|描述
+:---:|:---:|:---:|:---:|:---:|:---
+7|valueOperations.increment(key2, length)|key2|20|Long(20)|增量方式存储long值 并返回值
+8|valueOperations.increment(key3, height)|key3|182.5|Double(182.5)|增量方式存储double值 并返回值
+9|valueOperations.multiGet(keys)|keys[key,length,height]|[abcdefg, 20, 182.5]|List<V> [abcdefg, 20, 182.5]|批量获取value 没有则返回null
+10|valueOperations.increment(key2, length)|key2|40|Long(40)|增量方式存储long值 并返回值
+11|valueOperations.increment(key3, height)|key3|365.0|Double(365.0)|增量方式存储double值 并返回值
+13|valueOperations.multiGet(keys)|keys[key,length,height]|[abcdefg, 40, 365]|List<V> [abcdefg, 40, 365]|批量获取value 没有则返回null
+
+```
+        redisTemplate.delete(keys);
+        Map<String,String> map = new HashMap<>();
+        map.put(key,value);
+        map.put(key2,length.toString());
+        map.put(key3,height.toString());
+        // 增加map集合到redis
+        valueOperations.multiSet(map);
+        // 不存在即新增map的操作返回true 存在返回false
+        System.out.println(valueOperations.multiSetIfAbsent(map));
+```
+
+代码|操作|key|value|返回值|描述
+:---:|:---:|:---:|:---:|:---:|:---
+1|redisTemplate.delete(keys)|-|-|Long(3)|批量删除 返回删除的key的数量
+6|valueOperations.multiSet(map);|keys[key,length,height]|[abcdefg, 20, 182.5]|void|增加map集合到redis
+9|valueOperations.multiGet(keys)|keys[key,length,height]|[abcdefg, 20, 182.5]|Boolean(false)|不存在即新增map
+
+
+
+
+
 ## hash
 
 ## list
