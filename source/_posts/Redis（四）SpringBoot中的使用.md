@@ -1,6 +1,6 @@
 ---
 title: Redis（四）SpringBoot中的使用
-date: 2020-12-17 14:59:00
+date: 2020-12-18 14:59:00
 tags: [Redis,Springboot]
 categories: Redis
 keywords: Reids,SpringBoot,Java
@@ -171,10 +171,68 @@ top: false
 9|valueOperations.multiGet(keys)|keys[key,length,height]|[abcdefg, 20, 182.5]|Boolean(false)|不存在即新增map
 
 
-
-
-
 ## hash
+
+```
+        HashOperations<String, String, Object> valueOperations = redisTemplate.opsForHash();
+        Map<String, Object> map = new HashMap();
+        User user = new User("张三", 1, 20);
+        map.put("user1", user);
+        // 以map集合的形式添加键值对
+        valueOperations.putAll("user:", map);
+        User user2 = new User("李四", 2, 21);
+        // 新增map值
+        valueOperations.put("user:", "user2", user2);
+        // 如果存在返回false
+        System.out.println(valueOperations.putIfAbsent("user:", "user2", user2));
+        List<String> keys = Arrays.asList(new String[]{"user1", "user2","user3"});
+        // filed数
+        System.out.println(valueOperations.size("user:"));
+        // 所有的 hk
+        System.out.println(valueOperations.keys("user:"));
+        // 所有的键值对
+        System.out.println(valueOperations.entries("user:"));
+        ScanOptions options = new ScanOptions.ScanOptionsBuilder().count(1).match("*").build();
+        // 匹配的键值对
+        System.out.println(valueOperations.scan("user:",options));
+        // 所有的值
+        System.out.println(valueOperations.values("user:"));
+        // 批量获取hv
+        System.out.println(valueOperations.multiGet("user:",keys));
+        // 批量删除
+        System.out.println(valueOperations.delete("user:","user3","user2"));
+        // 是否存在
+        System.out.println(valueOperations.hasKey("user:","user1"));
+        // 增量put Double值
+        valueOperations.increment("user:","height",182.5D);
+        // 增量put Long值
+        valueOperations.increment("user:","length",20L);
+        valueOperations.increment("user:","height",0.5D);
+        valueOperations.increment("user:","length",1L);
+        System.out.println(valueOperations.entries("user:"));
+```
+console
+```
+        false
+        2
+        [user1, user2]
+        {user1=User(name=张三, sex=1, age=20), user2=User(name=李四, sex=2, age=21)}
+        org.springframework.data.redis.core.ConvertingCursor@15639d09
+        [User(name=张三, sex=1, age=20), User(name=李四, sex=2, age=21)]
+        [User(name=张三, sex=1, age=20), User(name=李四, sex=2, age=21), null]
+        1
+        true
+        {length=21, user1=User(name=张三, sex=1, age=20), height=183}
+```
+
+
+代码|操作|h|hk|hv
+:---:|:---:|:---:|:---:|:---:
+6|valueOperations.putAll("user:", map);|user:|user1|{user1=User(name=张三, sex=1, age=20)}
+9|valueOperations.putAll("user:", map);|user:|[user1,user2]|{user1=User(name=张三, sex=1, age=20), user2=User(name=李四, sex=2, age=21)}
+11|valueOperations.putIfAbsent("user:", "user2", user2));|user:|[user1,user2]|{user1=User(name=张三, sex=1, age=20), user2=User(name=李四, sex=2, age=21)}
+27|valueOperations.delete("user:","user3","user2");|user:|user1|{user1=User(name=张三, sex=1, age=20)}
+31,33,34,35|valueOperations.increment("user:","height",182.5D);<br>valueOperations.increment("user:","length",20L);<br>valueOperations.increment("user:","height",0.5D);<br>valueOperations.increment("user:","length",1L);|user:|[length,user1,height]|{length=21, user1=User(name=张三, sex=1, age=20), height=183}
 
 ## list
 
