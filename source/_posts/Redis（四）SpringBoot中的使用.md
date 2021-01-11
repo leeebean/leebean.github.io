@@ -229,10 +229,10 @@ console
 代码|操作|h|hk|hv
 :---:|:---:|:---:|:---:|:---:
 6|valueOperations.putAll("user:", map);|user:|user1|{user1=User(name=张三, sex=1, age=20)}
-9|valueOperations.putAll("user:", map);|user:|[user1,user2]|{user1=User(name=张三, sex=1, age=20), user2=User(name=李四, sex=2, age=21)}
+9|valueOperations.put("user:", "user2", user2);|user:|[user1,user2]|{user1=User(name=张三, sex=1, age=20), user2=User(name=李四, sex=2, age=21)}
 11|valueOperations.putIfAbsent("user:", "user2", user2));|user:|[user1,user2]|{user1=User(name=张三, sex=1, age=20), user2=User(name=李四, sex=2, age=21)}
 27|valueOperations.delete("user:","user3","user2");|user:|user1|{user1=User(name=张三, sex=1, age=20)}
-31,33,34,35|valueOperations.increment("user:","height",182.5D);<br>valueOperations.increment("user:","length",20L);<br>valueOperations.increment("user:","height",0.5D);<br>valueOperations.increment("user:","length",1L);|user:|[length,user1,height]|{length=21, user1=User(name=张三, sex=1, age=20), height=183}
+31,<br>33,<br>34,<br>35|valueOperations.increment("user:","height",182.5D);<br>valueOperations.increment("user:","length",20L);<br>valueOperations.increment("user:","height",0.5D);<br>valueOperations.increment("user:","length",1L);|user:|[length,user1,height]|{length=21,<br> user1=User(name=张三, sex=1, age=20),<br> height=183}
 
 ## list
 
