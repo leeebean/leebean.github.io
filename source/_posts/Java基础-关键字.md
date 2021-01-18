@@ -134,5 +134,5 @@ public class SynchronizedDemo {
 }
 ```
 
-`volatile`和`synchronized`的内容待多线程模块中展开
+`volatile`和`synchronized`部分的内容待多线程模块中展开
 
