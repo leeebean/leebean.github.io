@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java基础-集合 | Lee</title><meta name="description" content="重温基础，查缺补漏"><meta name="keywords" content="Java,集合"><meta name="author" content="lee"><meta name="copyright" content="lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/leebean.github.io/img/icon.png"><link rel="canonical" href="https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Java基础-集合"><meta property="og:url" content="https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/"><meta property="og:site_name" content="Lee"><meta property="og:description" content="重温基础，查缺补漏"><meta property="og:image" content="https://i.loli.net/2020/12/07/dUZ2E6LIGVfa5rX.png"><meta property="article:published_time" content="2020-03-11T06:59:00.000Z"><meta property="article:modified_time" content="2021-01-11T02:08:08.749Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java基础-集合 | Lee</title><meta name="description" content="重温基础，查缺补漏"><meta name="keywords" content="Java,集合"><meta name="author" content="lee"><meta name="copyright" content="lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/leebean.github.io/img/icon.png"><link rel="canonical" href="https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="Java基础-集合"><meta property="og:url" content="https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/"><meta property="og:site_name" content="Lee"><meta property="og:description" content="重温基础，查缺补漏"><meta property="og:image" content="https://i.loli.net/2020/12/07/dUZ2E6LIGVfa5rX.png"><meta property="article:published_time" content="2020-03-11T06:59:00.000Z"><meta property="article:modified_time" content="2021-01-18T01:43:37.605Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
   document.documentElement.setAttribute('data-theme', 'dark')
   if (document.querySelector('meta[name="theme-color"]') !== null) {
     document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
@@ -95,30 +95,220 @@ if (autoChangeMode === '1') {
 .justified-gallery img{
   opacity: 1
 }
-</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/leebean.github.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/leebean.github.io/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/leebean.github.io/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/leebean.github.io/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/leebean.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#集合"><span class="toc-text">集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#课前预备知识"><span class="toc-text">课前预备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection和Collections"><span class="toc-text">Collection和Collections</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/12/07/dUZ2E6LIGVfa5rX.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/leebean.github.io/">Lee</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/leebean.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Java基础-集合</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-11 14:59:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-03-11</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-01-11 10:08:08"><i class="fas fa-history fa-fw"></i> 更新于 2021-01-11</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/leebean.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="far fa-comments fa-fw post-meta__icon"></i><span>评论数:</span><a href="/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><blockquote>
-<p>集合类是Java数据结构的实现。Java的集合类是java.util包中的重要内容，它允许以各种方式将元素分组，并定义了各种使这些元素更容易操作的方法。Java集合类是Java将一些基本的和使用频率极高的基础类进行封装和增强后再以一个类的形式提供。集合类是可以往里面保存多个对象的类，存放的是对象，不同的集合类有不同的功能和特点，适合不同的场合，用以解决一些实际问题。</p>
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/leebean.github.io/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/leebean.github.io/archives/"><div class="headline">文章</div><div class="length_num">15</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/leebean.github.io/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/leebean.github.io/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/leebean.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、集合"><span class="toc-text">一、集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-预备知识"><span class="toc-text">1.预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-概念"><span class="toc-text">1.1 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-数据结构"><span class="toc-text">1.2 数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-集合框架设计成要满足的几个目标"><span class="toc-text">1.3 集合框架设计成要满足的几个目标:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-集合框架体系"><span class="toc-text">1.4 集合框架体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-Java集合框架"><span class="toc-text">1.5 Java集合框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Collection和Collections"><span class="toc-text">2.Collection和Collections</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-集合和数组"><span class="toc-text">3.集合和数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Collection有哪些常见方法"><span class="toc-text">4.Collection有哪些常见方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-迭代器"><span class="toc-text">5.迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Iterator"><span class="toc-text">5.1.Iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Iterable"><span class="toc-text">5.2 Iterable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3ListIterator"><span class="toc-text">5.3ListIterator</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二-Collection和Map"><span class="toc-text">二 Collection和Map</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、Map"><span class="toc-text">三、Map</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-HashMap"><span class="toc-text">3.1 HashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-LinkedHashMap"><span class="toc-text">3.2 LinkedHashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-TreeMap"><span class="toc-text">3.3 TreeMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-WeakHashMap"><span class="toc-text">3.4 WeakHashMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-HashTable"><span class="toc-text">3.5 HashTable</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、Collection"><span class="toc-text">四、Collection</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、集合算法的使用"><span class="toc-text">五、集合算法的使用</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/12/07/dUZ2E6LIGVfa5rX.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/leebean.github.io/">Lee</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/leebean.github.io/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/leebean.github.io/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Java基础-集合</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-03-11 14:59:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-03-11</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2021-01-18 09:43:37"><i class="fas fa-history fa-fw"></i> 更新于 2021-01-18</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/leebean.github.io/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"><span class="post-meta__separator">|</span><i class="far fa-comments fa-fw post-meta__icon"></i><span>评论数:</span><a href="/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/#post-comment"><span class="gitalk-comment-count comment-count"></span></a></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><!-- https://www.cnblogs.com/wangyongwen/p/13661981.html -->
+<!-- 
+https://i.loli.net/2021/01/03/kjwQRdrgLsFO3IE.png -->
+<!-- 
+https://i.loli.net/2021/01/11/fMPWkOwyKTbUrxj.png -->
+
+<h1 id="一、集合"><a href="#一、集合" class="headerlink" title="一、集合"></a>一、集合</h1><h2 id="1-预备知识"><a href="#1-预备知识" class="headerlink" title="1.预备知识"></a>1.预备知识</h2><blockquote>
+<p>jdk版本 1.8</p>
 </blockquote>
-<h2 id="课前预备知识"><a href="#课前预备知识" class="headerlink" title="课前预备知识"></a>课前预备知识</h2><ul>
-<li><a href="https://leeebean.github.io/leebean.github.io/2020/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li>
-</ul>
-<p>集合框架被设计成要满足以下几个目标。</p>
-<ul>
-<li><p>该框架必须是高性能的。基本集合（动态数组，链表，树，哈希表）的实现也必须是高效的。</p>
+<h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><blockquote>
+<p>集合类是Java数据结构的实现。Java的集合类是java.util包中的重要内容，它允许以各种方式将元素分组，并定义了各种使这些元素更容易操作的方法。Java集合类是Java将一些基本的和使用频率极高的基础类进行封装和增强后再以一个类的形式提供。集合类是可以往里面保存多个对象的类，存放的是对象，不同的集合类有不同的功能和特点，适合不同的场合，用以解决一些实际问题</p>
+</blockquote>
+<h3 id="1-2-数据结构"><a href="#1-2-数据结构" class="headerlink" title="1.2 数据结构"></a>1.2 数据结构</h3><p><a href="https://leeebean.github.io/leebean.github.io/2020/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></p>
+<h3 id="1-3-集合框架设计成要满足的几个目标"><a href="#1-3-集合框架设计成要满足的几个目标" class="headerlink" title="1.3 集合框架设计成要满足的几个目标:"></a>1.3 集合框架设计成要满足的几个目标:</h3><ul>
+<li><p>该框架必须是高性能的。</p>
+</li>
+<li><p>基本集合（动态数组，链表，树，哈希表）的实现也必须是高效的。</p>
 </li>
 <li><p>该框架允许不同类型的集合，以类似的方式工作，具有高度的互操作性。</p>
 </li>
 <li><p>对一个集合的扩展和适应必须是简单的。</p>
 </li>
 </ul>
-<p><code>总结</code>:高性能、高可用、可扩展</p>
-<p><img src= "/leebean.github.io/img/loading.gif" data-src="https://i.loli.net/2020/12/07/dUZ2E6LIGVfa5rX.png" alt="image.png"></p>
-<h2 id="Collection和Collections"><a href="#Collection和Collections" class="headerlink" title="Collection和Collections"></a>Collection和Collections</h2><ul>
+<p><code>总结</code>:高性能、高效、高可用、可扩展</p>
+<h3 id="1-4-集合框架体系"><a href="#1-4-集合框架体系" class="headerlink" title="1.4 集合框架体系"></a>1.4 集合框架体系</h3><ul>
+<li><p><strong>接口</strong>，集合的抽象数据类型 （Collection、List、Set、Map）</p>
+</li>
+<li><p><strong>实现</strong>，集合接口的具体实现，从本质上讲，它们是可重复使用的数据结构，（ArrayList、LinkedList、HashSet、HashMap。）</p>
+</li>
+<li><p><strong>算法</strong>，是实现集合接口的对象里的方法执行的一些有用的计算，搜索和排序。这些算法被称为多态，那是因为相同的方法可以在相似的接口上有着不同的实现。</p>
+</li>
+</ul>
+<p><img src= "/leebean.github.io/img/loading.gif" data-src="https://www.runoob.com/wp-content/uploads/2014/01/java-coll-2020-11-16.png" alt="集合框架体系"></p>
+<h3 id="1-5-Java集合框架"><a href="#1-5-Java集合框架" class="headerlink" title="1.5 Java集合框架"></a>1.5 Java集合框架</h3><p><img src= "/leebean.github.io/img/loading.gif" data-src="https://i.loli.net/2020/12/07/dUZ2E6LIGVfa5rX.png" alt="image.png"></p>
+<ul>
+<li>1.集合框架提供两个遍历接口：Iterator和ListIterator，后者是前者的优化版，支持在集合任意一个位置进行前后双向遍历;</li>
+<li>2.整个集合框架分为两个类型：Collection和Map，前者是一个容器，存储一系列的对象；后者是键值对&lt;key, value&gt;，存储一系列的键值对;</li>
+<li>3.在现有的集合框架体系下，衍生出四种具体集合类型：Map、Set、List、Queue;</li>
+<li>4.Map存储&lt;key,value&gt;键值对，查找元素时通过key查找value;</li>
+<li>5.Set内部存储一系列不可重复的对象，且是一个无序集合，对象排列顺序不一;</li>
+<li>6.List内部存储一系列可重复的对象，是一个有序集合，对象按插入顺序排列;</li>
+<li>7.Queue是一个队列容器，其特性与List相同，但只能从队头和队尾操作元素;</li>
+<li>8.JDK 为集合的各种操作提供了两个工具类Collections和Arrays;</li>
+<li>9.四种具体类型的集合，内部会再衍生许多不同特性的集合子类，根据不通的应用场景选择使用的集合;</li>
+</ul>
+<h2 id="2-Collection和Collections"><a href="#2-Collection和Collections" class="headerlink" title="2.Collection和Collections"></a>2.Collection和Collections</h2><ul>
 <li><p>Collection 是一个集合接口，提供了对集合对象进行基本操作的通用接口方法。</p>
 </li>
 <li><p>Collections 是一个包装类，内含各种集合操作的静态多态方法，不能实例化（构造方法私有），类似于一个工具类，服务于java Collection框架</p>
 </li>
 </ul>
-</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/">https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://leeebean.github.io/leebean.github.io" target="_blank">Lee</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/leebean.github.io/tags/Java/">Java</a><a class="post-meta__tags" href="/leebean.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/12/02/C6qLfUO1wRu4Yoz.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/leebean.github.io/2020/03/11/Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"><img class="prev-cover" data-src="https://i.loli.net/2020/12/02/UHArQETK6MjnJXO.jpg" onerror="onerror=null;src='/leebean.github.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux常见命令</div></div></a></div><div class="next-post pull-right"><a href="/leebean.github.io/2020/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><img class="next-cover" data-src="https://i.loli.net/2020/12/02/nFubLHrqwp9iN4e.png" onerror="onerror=null;src='/leebean.github.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构（一）快速了解数据结构</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/leebean.github.io/2020/03/10/Java基础-String/" title="Java基础-String"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/02/sP9qtSmzJe14OHw.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-10</div><div class="relatedPosts_title">Java基础-String</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/12/30/Java基础-关键字/" title="Java基础-关键字"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/30/7QiuBTIAxh8mdYO.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-30</div><div class="relatedPosts_title">Java基础-关键字</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/03/01/Java基础-数据类型/" title="Java基础-数据类型"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/02/nFubLHrqwp9iN4e.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-01</div><div class="relatedPosts_title">Java基础-数据类型</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/12/23/日积月累-Java的序列化/" title="日积月累-Java的序列化"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/23/7pDl4MaioGZ6tqP.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-23</div><div class="relatedPosts_title">日积月累-Java的序列化</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/02/25/排序算法/" title="排序算法"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/03/rwYKSp1cNt7vZuI.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="relatedPosts_title">排序算法</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/02/24/算法概述/" title="算法概述"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/02/oy1xXtevMQnWgHz.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-24</div><div class="relatedPosts_title">算法概述</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+<h2 id="3-集合和数组"><a href="#3-集合和数组" class="headerlink" title="3.集合和数组"></a>3.集合和数组</h2><table>
+<thead>
+<tr>
+<th align="center">-</th>
+<th align="left">集合</th>
+<th align="left">数组</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>空间</strong></td>
+<td align="left">可扩容</td>
+<td align="left">相对固定</td>
+</tr>
+<tr>
+<td align="center"><strong>类型</strong></td>
+<td align="left">只能是引用类型</td>
+<td align="left">可以是基本类型也可以是引用类型</td>
+</tr>
+<tr>
+<td align="center"><strong>内容</strong></td>
+<td align="left">可以存储不同类型</td>
+<td align="left">只能存储同一类型</td>
+</tr>
+</tbody></table>
+<h2 id="4-Collection有哪些常见方法"><a href="#4-Collection有哪些常见方法" class="headerlink" title="4.Collection有哪些常见方法"></a>4.Collection有哪些常见方法</h2><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">int size();</td>
+<td align="left">返回集合中元素个数</td>
+</tr>
+<tr>
+<td align="left">boolean isEmpty();</td>
+<td align="left">判断集合是否为空</td>
+</tr>
+<tr>
+<td align="left">boolean contains(Object o);</td>
+<td align="left">判断是否包含指定元素（o）</td>
+</tr>
+<tr>
+<td align="left">Object[] toArray();</td>
+<td align="left">返回一个包含所有元素的Object 数组</td>
+</tr>
+<tr>
+<td align="left">boolean add(E e);</td>
+<td align="left">添加元素</td>
+</tr>
+<tr>
+<td align="left">boolean remove(Object o);</td>
+<td align="left">删除元素</td>
+</tr>
+<tr>
+<td align="left">boolean containsAll(Collection&lt;?&gt; c);</td>
+<td align="left">是否包含指定集合</td>
+</tr>
+<tr>
+<td align="left">boolean addAll(Collection&lt;? extends E&gt; c);</td>
+<td align="left">将c类集合添加到另一个类集</td>
+</tr>
+<tr>
+<td align="left">boolean removeAll(Collection&lt;?&gt; c);</td>
+<td align="left">删除c集合内所有元素</td>
+</tr>
+<tr>
+<td align="left">void clear();</td>
+<td align="left">清空集合</td>
+</tr>
+<tr>
+<td align="left">Iterator<E> iterator();</td>
+<td align="left">迭代器</td>
+</tr>
+</tbody></table>
+<h2 id="5-迭代器"><a href="#5-迭代器" class="headerlink" title="5.迭代器"></a>5.迭代器</h2><h3 id="5-1-Iterator"><a href="#5-1-Iterator" class="headerlink" title="5.1.Iterator"></a>5.1.Iterator</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterator&lt;E&gt; &#123;</span><br><span class="line">    boolean hasNext();</span><br><span class="line">    E next();</span><br><span class="line">    void remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="left">api</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">boolean hasNext();</td>
+<td align="left">判断集合中是否还有下一个对象。</td>
+</tr>
+<tr>
+<td align="left">E next();</td>
+<td align="left">返回集合中的下一个对象，并将访问指针移动一位。</td>
+</tr>
+<tr>
+<td align="left">void remove();</td>
+<td align="left">删除集合中调用next()方法返回的对象。</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">list.add(10);</span><br><span class="line">list.add(20);</span><br><span class="line">list.add(30);</span><br><span class="line">Iterator iter &#x3D; list.iterator();</span><br><span class="line">while (iter.hasNext()) &#123;</span><br><span class="line">    Integer next &#x3D; iter.next();</span><br><span class="line">    System.out.println(next);</span><br><span class="line">    if (next &#x3D;&#x3D; 20) &#123;</span><br><span class="line">    iter.remove(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-Iterable"><a href="#5-2-Iterable" class="headerlink" title="5.2 Iterable"></a>5.2 Iterable</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public interface Iterable&lt;T&gt; &#123;</span><br><span class="line">    Iterator&lt;T&gt; iterator();</span><br><span class="line">    default void forEach(Consumer&lt;? super T&gt; action) &#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        for (T t : this) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    default Spliterator&lt;T&gt; spliterator() &#123;</span><br><span class="line">    return Spliterators.spliteratorUnknownSize(iterator(), 0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Iterable接口里面提供了一个Iterator()方法返回迭代器，因此实现了Iterable接口的集合依旧可以使用迭代器遍历和操作集合中的对象。在 JDK 1.8中，Iterable接口新增了一个方法forEach()，它允许使用增强 for 循环遍历对象。</p>
+<p>为什么要设计两个接口Iterable和Iterator？Iterator接口的保留可以让子类去实现自己的迭代器，而Iterable接口更加关注于for-each的增强语法。</p>
+<h3 id="5-3ListIterator"><a href="#5-3ListIterator" class="headerlink" title="5.3ListIterator"></a>5.3ListIterator</h3><p>ListIterator继承 Iterator 接口，仅存在于 List 集合之中，通过调用方法可以返回起始下标为 index的迭代器。ListIterator 中有几个重要方法，大多数方法与 Iterator 中定义的含义相同，此外根据返回的迭代器，且可以实现双向遍历。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public interface ListIterator&lt;E&gt; extends Iterator&lt;E&gt; &#123;</span><br><span class="line">    boolean hasNext();</span><br><span class="line">    E next();</span><br><span class="line">    boolean hasPrevious();</span><br><span class="line">    E previous();</span><br><span class="line">    int nextIndex();</span><br><span class="line">    int previousIndex();</span><br><span class="line">    void remove();</span><br><span class="line">    &#x2F;&#x2F; 替换当前下标的元素,即访问过的最后一个元素</span><br><span class="line">    void set(E e);</span><br><span class="line">    void add(E e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="二-Collection和Map"><a href="#二-Collection和Map" class="headerlink" title="二 Collection和Map"></a>二 Collection和Map</h1><p><img src= "/leebean.github.io/img/loading.gif" data-src="https://i.loli.net/2021/01/11/yROa2joEXIxdCis.png" alt="image.png"><br>Map接口和Collection接口是Java的集合框架中的两个重要门派，Collection存储的是集合元素本身，Map存储的是&lt;key,value&gt;键值对，但是部分Collection子类使用了Map来实现的。例如：HashSet底层使用了HashMap，TreeSet底层使用了TreeMap，LinkedHashSet底层使用了LinkedHashMap</p>
+<table>
+    <tr>
+        <th> 接口</th>
+        <th> 接口</th>
+        <th> 抽象类</th>
+        <th>描述</th>
+    </tr>
+    <tr>
+        <td rowspan ="3">Collection</td>
+        <td>Set</td>
+        <td>-</td>
+        <td>不允许存储重复元素的无序集合</td>
+    </tr>
+    <tr>
+        <td>List</td>
+        <td>-</td>
+        <td>可存储重复元素的有序集合</td>
+    </tr>
+    <tr>
+        <td>Queue</td>
+        <td>-</td>
+        <td>可存储重复元素的队列</td>
+    </tr>
+    <tr>
+        <td rowspan ="2">Map</td>
+        <td>AbstracMap</td>
+        <td>-</td>
+        <td>它为子类提供好一些通用的API实现，所有的具体Map如HashMap都会继承它</td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>SortedMap</td>
+        <td>该类映射可以对<key, value>按照自己的规则进行排序</td>
+    </tr>
+</table>
+
+<h1 id="三、Map"><a href="#三、Map" class="headerlink" title="三、Map"></a>三、Map</h1><blockquote>
+<p><strong>Map</strong> 体系下主要分为 <strong>AbstractMap</strong> 和 <strong>SortedMap</strong>两类集合<br>  <strong>AbstractMap</strong>是对Map接口的扩展，定义了普通Map集合具有的通用方法，可避免子类重复编写大量相同代码，子类继承 AbstractMap 后可重写它的方法，并实现额外逻辑，对外可提供更多的功能。<br>  <strong>SortedMap</strong>接口定义了Map具有排序行为，当子类实现它时，必须重写所有方法，对外提供排序功能。</p>
+</blockquote>
+<h2 id="3-1-HashMap"><a href="#3-1-HashMap" class="headerlink" title="3.1 HashMap"></a>3.1 HashMap</h2><p><img src= "/leebean.github.io/img/loading.gif" data-src="https://i.loli.net/2021/01/11/fMPWkOwyKTbUrxj.png" alt="HashMap"></p>
+<p><strong>HashMap</strong> 底层是 <code>数组</code> + <code>链表</code> + <code>红黑树</code> 实现的 非线程安全的集合</p>
+<p>HashMap 是一个最通用的利用哈希表存储元素的集合，有元素加入HashMap时，会将key的哈希值转换为数组的索引下标确定存放位置，在查找元素时，根据key的哈希地址转换成数组的索引下标确定查找位置。</p>
+<p>加入元素发生哈希冲突时，HashMap会将相同地址的元素连成一条链表，若链表长度大于<code>8</code>，且数组长度大于<code>64</code>会转换成<code>红黑树</code>数据结构。</p>
+<p><strong>总结:</strong></p>
+<ol>
+<li>集合中最常用的Map集合类型，底层由数组 + 链表 + 红黑树组成；</li>
+<li>HashMap线程不安全</li>
+<li>插入元素时，通过计算key的hash值，通过哈希映射函数换为数组下标；查找元素时，通过哈希映射函数得到数组下标定位到元素位置</li>
+</ol>
+<p><a href=""><strong>HashMap详解</strong></a></p>
+<h2 id="3-2-LinkedHashMap"><a href="#3-2-LinkedHashMap" class="headerlink" title="3.2 LinkedHashMap"></a>3.2 LinkedHashMap</h2><p>LinkedHashMap继承了HashMap</p>
+<h2 id="3-3-TreeMap"><a href="#3-3-TreeMap" class="headerlink" title="3.3 TreeMap"></a>3.3 TreeMap</h2><h2 id="3-4-WeakHashMap"><a href="#3-4-WeakHashMap" class="headerlink" title="3.4 WeakHashMap"></a>3.4 WeakHashMap</h2><h2 id="3-5-HashTable"><a href="#3-5-HashTable" class="headerlink" title="3.5 HashTable"></a>3.5 HashTable</h2><h1 id="四、Collection"><a href="#四、Collection" class="headerlink" title="四、Collection"></a>四、Collection</h1><h1 id="五、集合算法的使用"><a href="#五、集合算法的使用" class="headerlink" title="五、集合算法的使用"></a>五、集合算法的使用</h1></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/">https://leeebean.github.io/leebean.github.io/2020/03/11/Java%E5%9F%BA%E7%A1%80-%E9%9B%86%E5%90%88/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://leeebean.github.io/leebean.github.io" target="_blank">Lee</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/leebean.github.io/tags/Java/">Java</a><a class="post-meta__tags" href="/leebean.github.io/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/12/02/C6qLfUO1wRu4Yoz.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/leebean.github.io/2020/03/11/Linux%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4/"><img class="prev-cover" data-src="https://i.loli.net/2020/12/02/UHArQETK6MjnJXO.jpg" onerror="onerror=null;src='/leebean.github.io/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux常见命令</div></div></a></div><div class="next-post pull-right"><a href="/leebean.github.io/2020/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%80%EF%BC%89%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><img class="next-cover" data-src="https://i.loli.net/2020/12/02/nFubLHrqwp9iN4e.png" onerror="onerror=null;src='/leebean.github.io/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数据结构（一）快速了解数据结构</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/leebean.github.io/2020/03/10/Java基础-String/" title="Java基础-String"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/02/sP9qtSmzJe14OHw.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-10</div><div class="relatedPosts_title">Java基础-String</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/12/30/Java基础-关键字/" title="Java基础-关键字"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/30/7QiuBTIAxh8mdYO.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-30</div><div class="relatedPosts_title">Java基础-关键字</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/03/01/Java基础-数据类型/" title="Java基础-数据类型"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/02/nFubLHrqwp9iN4e.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-01</div><div class="relatedPosts_title">Java基础-数据类型</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/12/23/日积月累-Java的序列化/" title="日积月累-Java的序列化"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/23/7pDl4MaioGZ6tqP.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-23</div><div class="relatedPosts_title">日积月累-Java的序列化</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/02/25/排序算法/" title="排序算法"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/03/rwYKSp1cNt7vZuI.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="relatedPosts_title">排序算法</div></div></a></div><div class="relatedPosts_item"><a href="/leebean.github.io/2020/02/24/算法概述/" title="算法概述"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/12/02/oy1xXtevMQnWgHz.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-24</div><div class="relatedPosts_title">算法概述</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
   clientID: '2a105e406112e4a1d7e2',
   clientSecret: '3469fbee612873cc1dd98b897c0c64c755b5b452',
   repo: 'blogtalk',
