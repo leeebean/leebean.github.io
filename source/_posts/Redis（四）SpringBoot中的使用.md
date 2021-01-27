@@ -236,11 +236,200 @@ console
 
 ## list
 
+```
+        ListOperations<String, Object> listOperations = redisTemplate.opsForList();
+        String key = "week";
+        
+
+        System.out.println(listOperations.leftPush(key, "MONDAY-周一"));
+        System.out.println(listOperations.rightPush(key, "WEDNESDAY-周三"));
+        System.out.println(listOperations.leftPush(key,"WEDNESDAY-周三","TUESDAY-周二"));
+        System.out.println(listOperations.leftPushIfPresent(key, "TUESDAY-周二"));
+        System.out.println(listOperations.rightPush(key, "THURSDAY-周四"));
+        System.out.println(listOperations.rightPush(key, "THURSDAY-周四","FRIDAY-周五"));
+        System.out.println(listOperations.rightPushIfPresent(key, "FRIDAY-周五"));
+        System.out.println(listOperations.range(key, 0L,listOperations.size(key)));
+
+        listOperations.set(key, 5,"FRIDAY-周五");
+        System.out.println(listOperations.index(key, 0));
+        listOperations.trim(key, 0, listOperations.size(key));
+        // index : 2 删除匹配到的元素数量
+        listOperations.remove(key,1,"FRIDAY-周五");
+        System.out.println(listOperations.range(key, 0L,listOperations.size(key)));
+
+        System.out.println(listOperations.rightPop(key,2,TimeUnit.HOURS));
+        System.out.println(listOperations.leftPop(key,2,TimeUnit.HOURS));
+        System.out.println(listOperations.range(key, 0L,listOperations.size(key)));
+
+        System.out.println(listOperations.rightPopAndLeftPush(key,key,2,TimeUnit.HOURS));
+        System.out.println(listOperations.range(key, 0L,listOperations.size(key)));
+```
+cosole
+```
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        [TUESDAY-周二, MONDAY-周一, TUESDAY-周二, WEDNESDAY-周三, THURSDAY-周四, FRIDAY-周五, FRIDAY-周五]
+        TUESDAY-周二
+        [TUESDAY-周二, MONDAY-周一, TUESDAY-周二, WEDNESDAY-周三, THURSDAY-周四, FRIDAY-周五]
+        FRIDAY-周五
+        TUESDAY-周二
+        [MONDAY-周一, TUESDAY-周二, WEDNESDAY-周三, THURSDAY-周四]
+        THURSDAY-周四
+        [THURSDAY-周四, MONDAY-周一, TUESDAY-周二, WEDNESDAY-周三]
+```
+
 ## set
 
+```
+        String key1 = "set";
+        String key2 = "set2";
+        String key3 = "set3";
+        String key4 = "set4";
+        SetOperations setOperations = redisTemplate.opsForSet();
+        redisTemplate.delete(key1);
+        redisTemplate.delete(key2);
+        redisTemplate.delete(key3);
+        redisTemplate.delete(key4);
+        setOperations.add(key1, "vs1");
+        setOperations.add(key1, "vs1");
+        setOperations.add(key1, "vs2");
+        setOperations.add(key1, "vs3");
+        setOperations.add(key1, "vs4");
+        System.out.println(setOperations.size(key1));
+        setOperations.remove(key1, "vs1", "vs2");
+        System.out.println(setOperations.isMember(key1, "vs3"));
+        System.out.println(setOperations.pop(key1));
+        setOperations.add(key2, "vs1");
+        setOperations.add(key2, "vs2");
+        setOperations.add(key2, "vs3");
+        setOperations.add(key2, "vs4");
+        setOperations.add(key2, "vs5");
+        setOperations.add(key3, "vs6");
+        setOperations.add(key3, "vs7");
+        setOperations.add(key3, "vs8");
+        setOperations.add(key3, "vs9");
+        setOperations.add(key3, "vs10");
+        setOperations.add(key4, "vs11");
+        // 交集
+        System.out.println(setOperations.intersect(key1, key2));
+        // 取交集并存入到目标集合
+        setOperations.intersectAndStore(key1, key2, key4);
+        // 取差集
+        System.out.println(setOperations.difference(key1, key2));
+        System.out.println(setOperations.difference(Arrays.asList(new String[]{key1, key2})));
+        // 取差集并存入到目标集合
+        setOperations.differenceAndStore(key1, key2, key4);
+        // 取并集
+        setOperations.union(key1, key2);
+        setOperations.unionAndStore(key1, Arrays.asList(new String[]{key2, key3}), key4);
+        // 随机获取一个元素
+        System.out.println(setOperations.randomMember(key4));
+        // 随机获取2个元素
+        System.out.println(setOperations.randomMembers(key4,2L));
+        // 随机获取两个取重的元素
+        System.out.println(setOperations.distinctRandomMembers(key4,2L));
+        // 遍历该集合
+        Cursor cursor = setOperations.scan(key4,new ScanOptions.ScanOptionsBuilder().count(2).match("*").build());
+        cursor.forEachRemaining((v)->{
+            System.out.print(v);
+        });
+        // 获取所有元素
+        System.out.println(setOperations.members(key1));
+        System.out.println(setOperations.members(key2));
+        System.out.println(setOperations.members(key3));
+        System.out.println(setOperations.members(key4));
+```
+
+console
+```
+
+4
+true
+vs3
+[vs4]
+[]
+[]
+vs3
+[vs8, vs6]
+[vs6, vs2]
+vs5vs3vs2vs8vs1vs10vs9vs4vs6vs7
+[vs4]
+[vs2, vs3, vs5, vs4, vs1]
+[vs9, vs6, vs8, vs7, vs10]
+[vs5, vs4, vs1, vs9, vs2, vs8, vs3, vs6, vs10, vs7]
+
+```
 ## zset
+
+```
+        ZSetOperations<String, Object> zSetOperations = redisTemplate.opsForZSet();
+        final String LEADERBOARD = "leaderboard";
+        redisTemplate.delete(LEADERBOARD);
+        // 添加元素
+        zSetOperations.add(LEADERBOARD,"张三",99.9D);
+        zSetOperations.add(LEADERBOARD,"李四",100.0D);
+        zSetOperations.add(LEADERBOARD,"王二麻子",98.9D);
+        zSetOperations.add(LEADERBOARD,"xxxx1",60.0D);
+        zSetOperations.add(LEADERBOARD,"xxxx2",59.0D);
+        zSetOperations.add(LEADERBOARD,"xxxx3",58.0D);
+        zSetOperations.add(LEADERBOARD,"xxxx4",57.0D);
+        zSetOperations.add(LEADERBOARD,"xxxx5",56.0D);
+        zSetOperations.add(LEADERBOARD,"xxxx6",55.0D);
+        // 获取集合大小
+        System.out.println(zSetOperations.size(LEADERBOARD));
+        System.out.println(zSetOperations.zCard(LEADERBOARD));
+        // 增加score
+        zSetOperations.incrementScore(LEADERBOARD, "xxxx1", 87D);
+        // 获取score
+        System.out.println(zSetOperations.score(LEADERBOARD,"xxxx4"));
+        // 获取从小到大排名
+        System.out.println(zSetOperations.rank(LEADERBOARD,"张三"));
+        // 获取从大到小排名
+        System.out.println(zSetOperations.reverseRank(LEADERBOARD,"张三"));
+        // 获取从小到大1-3的元素
+        System.out.println(zSetOperations.range(LEADERBOARD,0L,2L));
+        // 获取从大到小1-3的元素
+        System.out.println(zSetOperations.reverseRange(LEADERBOARD,0L,2L));
+        // 获取集合中大于60 小于等于100的元素 按从小到大排列
+        System.out.println(zSetOperations.rangeByScore(LEADERBOARD,60D,100D));
+        // 获取集合中第1到第5个 且大于60 小于等于100 的元素  按从大到小排列
+        System.out.println(zSetOperations.reverseRangeByScore(LEADERBOARD,60D,100D,0L,4L));
+        // 获取大于60 小于等于100的元素的个数
+        System.out.println(zSetOperations.count(LEADERBOARD,60D,100D));
+        // 获取集合中指定区间的元素
+        System.out.println(zSetOperations.rangeWithScores(LEADERBOARD,1L,3L));
+        // 删除一个或者多个元素
+        zSetOperations.remove(LEADERBOARD,"xxxx5","xxxx6");
+        // 按从小到大排删除第1个到第三个元素
+        zSetOperations.removeRange(LEADERBOARD,0,2);
+        // 按从小到达排删除大于等于100 且小雨等于150的元素
+        zSetOperations.removeRangeByScore(LEADERBOARD,100D,150D);
+        System.out.println(zSetOperations.reverseRange(LEADERBOARD,0L,10L));
+```
+console
+
+```
+9
+9
+57.0
+6
+2
+[xxxx6, xxxx5, xxxx4]
+[xxxx1, 李四, 张三]
+[王二麻子, 张三, 李四]
+[李四, 张三, 王二麻子]
+3
+[org.springframework.data.redis.core.DefaultTypedTuple@d00765f6, org.springframework.data.redis.core.DefaultTypedTuple@d016e5f5, org.springframework.data.redis.core.DefaultTypedTuple@d02665f4]
+[张三, 王二麻子]
+```
 
 # 二、注解
 
+[springboot整合spring @Cache和Redis](https://www.cnblogs.com/wenjunwei/p/10779450.html)
 
 
